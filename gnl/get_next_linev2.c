@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_linev2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayakoubi <ayakoubi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 12:45:40 by ayakoubi          #+#    #+#             */
-/*   Updated: 2022/11/07 14:52:48 by ayakoubi         ###   ########.fr       */
+/*   Created: 2022/11/07 12:00:38 by ayakoubi          #+#    #+#             */
+/*   Updated: 2022/11/07 18:52:52 by ayakoubi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "get_next_line.h"
 char    *fill_gnl(int fd, char *buff, char *rest)
@@ -27,11 +28,10 @@ char    *fill_gnl(int fd, char *buff, char *rest)
             return (NULL);	
         str[ret] = 0;
         //buff = malloc(BUFFER_SIZE + 1);
-        ft_line(buff, rest);
-		free(buff);
+        buff = ft_strfree(buff, str);
     }
    // free(buff);
-    return (rest);
+    return (buff);
 }
 
 // int    fill_gnl(int fd, char *buff)
@@ -45,40 +45,24 @@ char    *fill_gnl(int fd, char *buff, char *rest)
 // 	return (ret);
 // }
 
-void    ft_line(char *buff, char *rest)
+char    *ft_line(char *buff, char *rest)
 {
-	//char *line;
-	char *tmp;
-
-	if (!rest)
-		rest = strdup("");
-	tmp = rest;
-	rest = ft_strjoin(tmp, buff);
-	//free(tmp);
-	//free(buff);
-	// return (rest);
+	buff = ft_strjoin(rest, buff);
+	return (buff);
 }
 
-char	*ft_save(char *buff, char *rest)
+void	ft_save(char *buff, char *rest)
 {
 	int i = -1;
 	while (buff[++i] && buff[i] != '\n')
 		;
-	
-	char	*line;
-	char	*tmp;
-	line = ft_substr(rest, 0, i + 1);
-	tmp = rest;
-	rest = ft_substr(tmp, i + 1, ft_strlen(rest));
-	//free(tmp);
-	return (line);
-	
-	// while (buff[++i])
-	// {
-	// 	rest[j++] = buff[i];
-	// 	buff[i] = 0;
-	// }
-	// rest[j] = 0;
+	int j = 0;
+	while (buff[++i])
+	{
+		rest[j++] = buff[i];
+		buff[i] = 0;
+	}
+	rest[j] = 0;
 	// buff = ft_strjoin(rest, buff);
 	// return (buff);
 }
@@ -87,27 +71,39 @@ char    *get_next_line(int fd)
 {
 	char    *buff;
 	static char rest[BUFFER_SIZE];
-	//int	ret;
+	//int	ret = 1;
 
+	//buff = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	// while (1)
+	
+	// while (ret > 0)
 	// {
 	// 	buff = malloc(BUFFER_SIZE + 1);
-	// 	ret = fill_gnl(fd, buff);
-	// 	if (ret < 0 || (ret == 0 && rest  != NULL))
-    //          return (NULL);
-	// 	ft_save(buff, rest);
-	// 	if (rest == '\0')
+	// 	if (!buff)
 	// 		return (NULL);
-	// 	if ((ret == 0 && *rest) || !ft_strchr(buff, '\n'))
-	// 		return (ft_line(buff, rest));
+	// 	ret = fill_gnl(fd, buff);
+	// 	//printf("buff ===> %s", buff);
+	// 	if (ret < 0 || ret == 0)
+    //          return (NULL);
+	// 	// if (rest == '\0')
+	// 	// 	return (NULL);
+	// 	// if (ret > 0 && !ft_strchr(buff, '\n'))
+	// 	// 	return (ft_line(buff, rest));
 		
 	// }
+
+	// buff = ft_line(buff, rest);
+	// ft_save(buff, rest);	
+	
 	buff = NULL;
 	buff = fill_gnl(fd, buff, rest);
-
-	return (ft_save(buff, rest));
+	buff = ft_line(buff, rest);
+	ft_save(buff, rest);
+	
+	 if (*buff == '\0')
+		return (rest[fd] = 0, NULL);
+	return (buff);
 }
 
 int main()
