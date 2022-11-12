@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayakoubi <ayakoubi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/23 19:11:11 by ayakoubi          #+#    #+#             */
-/*   Updated: 2022/11/12 13:12:34 by ayakoubi         ###   ########.fr       */
+/*   Created: 2022/11/12 14:41:31 by ayakoubi          #+#    #+#             */
+/*   Updated: 2022/11/12 15:38:12 by ayakoubi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen(char *str)
 {
 	size_t	i;
 
@@ -72,15 +72,28 @@ char	*ft_strjoin(char *s1, char *s2)
 	new[i] = '\0';
 	return (new);
 }
-
+/*
 char	*ft_strchr(char *s, int c)
 {
 	int	i;
 
+	if (!s)
+		return (NULL);
 	i = -1;
 	while (s[++i] && s[i] != (char)c)
 		;
 	if (s[i] == (char)c)
 		return ((char *)&s[i]);
 	return (NULL);
+}
+*/
+char    *ft_strchr(char *str, int c)
+{
+    while (*str != (char)c)
+    {
+        if (!*str)
+            return (0);
+        str++;
+    }
+    return ((char *)str);
 }

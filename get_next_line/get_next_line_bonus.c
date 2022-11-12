@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayakoubi <ayakoubi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 12:45:40 by ayakoubi          #+#    #+#             */
-/*   Updated: 2022/11/12 13:03:33 by ayakoubi         ###   ########.fr       */
+/*   Created: 2022/11/12 14:27:54 by ayakoubi          #+#    #+#             */
+/*   Updated: 2022/11/12 15:39:12 by ayakoubi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strfree(char *buffer, char *s)
 {
@@ -23,7 +23,7 @@ char	*ft_strfree(char *buffer, char *s)
 	return (tmp);
 }
 
-char	*fill_gnl(int fd, char *rest)
+char	*fill_gnl(int fd, char **rest)
 {
 	int		ret;
 	char	*buff;
@@ -38,10 +38,10 @@ char	*fill_gnl(int fd, char *rest)
 		if (ret < 0 || (ret == 0 && rest == NULL))
 			return (free(buff), NULL);
 		buff[ret] = '\0';
-		rest = ft_strfree(rest, buff);
+		*rest = ft_strfree(*rest, buff);
 	}
 	free(buff);
-	return (rest);
+	return (*rest);
 }
 
 char	*ft_line(char *buff)
@@ -92,27 +92,39 @@ void	ft_save(char *rest)
 
 char	*get_next_line(int fd)
 {
-	char		*rest;
-	static char	rest2[BUFFER_SIZE];
+	//char		*rest;
+	static char	*rest[10240];
 	char		*line;
 	int			i;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (rest2[0] = 0, NULL);
-	rest = ft_calloc(strlen(rest2) + 1, 1);
+	if (fd < 0 || fd > 10240 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+		return (NULL);
+	//printf("rest === > %s\n", *rest);
+	//rest = ft_calloc(strlen(*rest2) + 1, 1);
+	//printf("rest === > %s\n", *rest);
 	i = -1;
-	while (rest2[++i])
-		rest[i] = rest2[i];
-	if (!ft_strchr(rest, '\n'))
-		rest = fill_gnl(fd, rest);
-	if (!rest[0])
-		return (free(rest), NULL);
-	line = ft_line(rest);
-	ft_save(rest);
-	i = -1;
-	while (rest[++i])
-		rest2[i] = rest[i];
-	rest2[i] = '\0';
-	free(rest);
+	//while (rest2[fd][++i])
+		//rest[i] = rest2[fd][i];
+	//printf("rest === > %s\n", *rest);
+	//if (ft_strchr(rest[fd], '\n') != NULL)
+		*rest = fill_gnl(fd, rest);
+	if (*rest[0] == '\0')
+		return (free(rest[fd]), rest[fd] = 0, NULL);
+	line = ft_line(*rest);
+	ft_save(*rest);
+	//i = -1;
+//	while (rest[++i])
+//		rest2[fd][i] = rest[i];
+//	rest2[fd][i] = '\0';
 	return (line);
 }
+/*
+int main()
+{
+	int fd;
+	char	*s;
+	fd = open("init.txt", O_RDONLY);
+		s = get_next_line(fd);
+		printf("line === > %s", s);
+	return (0);
+}*/

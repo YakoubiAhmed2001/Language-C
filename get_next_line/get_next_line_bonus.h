@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayakoubi <ayakoubi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/22 12:49:26 by ayakoubi          #+#    #+#             */
-/*   Updated: 2022/11/12 14:33:34 by ayakoubi         ###   ########.fr       */
+/*   Created: 2022/11/12 15:23:00 by ayakoubi          #+#    #+#             */
+/*   Updated: 2022/11/12 15:38:29 by ayakoubi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdio.h>
 # include <unistd.h>
@@ -29,7 +29,7 @@ char	*get_next_line(int fd);
 char	*ft_line(char *rest);
 void	ft_save(char *rest);
 char	*ft_strfree(char *buff, char *str);
-size_t	ft_strlen(const char *str);
+size_t	ft_strlen(char *str);
 void	*ft_memset(void *s, int c, size_t n);
 void	*ft_calloc(size_t num, size_t size);
 char	*ft_strjoin(char *s1, char *s2);
