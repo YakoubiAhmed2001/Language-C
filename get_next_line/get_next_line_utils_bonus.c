@@ -6,7 +6,7 @@
 /*   By: ayakoubi <ayakoubi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 14:41:31 by ayakoubi          #+#    #+#             */
-/*   Updated: 2022/11/12 15:38:12 by ayakoubi         ###   ########.fr       */
+/*   Updated: 2022/11/15 12:10:06 by ayakoubi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	new[i] = '\0';
 	return (new);
 }
-/*
+
 char	*ft_strchr(char *s, int c)
 {
 	int	i;
@@ -85,15 +85,4 @@ char	*ft_strchr(char *s, int c)
 	if (s[i] == (char)c)
 		return ((char *)&s[i]);
 	return (NULL);
-}
-*/
-char    *ft_strchr(char *str, int c)
-{
-    while (*str != (char)c)
-    {
-        if (!*str)
-            return (0);
-        str++;
-    }
-    return ((char *)str);
 }

@@ -6,7 +6,7 @@
 /*   By: ayakoubi <ayakoubi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 12:45:40 by ayakoubi          #+#    #+#             */
-/*   Updated: 2022/11/14 20:21:07 by ayakoubi         ###   ########.fr       */
+/*   Updated: 2022/11/15 12:11:59 by ayakoubi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			i;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || fd == 1 || fd == 2 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (rest2[0] = 0, NULL);
 	rest = ft_calloc(ft_strlen(rest2) + 1, 1);
 	i = -1;

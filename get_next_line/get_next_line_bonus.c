@@ -6,7 +6,7 @@
 /*   By: ayakoubi <ayakoubi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 14:27:54 by ayakoubi          #+#    #+#             */
-/*   Updated: 2022/11/15 11:36:36 by ayakoubi         ###   ########.fr       */
+/*   Updated: 2022/11/15 12:08:47 by ayakoubi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,9 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			i;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || fd == 1 || fd == 2 || BUFFER_SIZE <= 0)
+		return (NULL);
+	if (read(fd, 0, 0) < 0)
 		return (rest[fd][0] = 0, NULL);
 	tmp = ft_calloc(ft_strlen(rest[fd]) + 1, 1);
 	i = -1;
@@ -107,11 +109,8 @@ char	*get_next_line(int fd)
 		tmp = fill_gnl(fd, tmp);
 	if (!tmp[0])
 		return (free(tmp), NULL);
-	if (tmp)
-	{
-		line = ft_line(tmp);
-		ft_save(tmp);
-	}
+	line = ft_line(tmp);
+	ft_save(tmp);
 	i = -1;
 	while (tmp[++i])
 		rest[fd][i] = tmp[i];
@@ -119,27 +118,3 @@ char	*get_next_line(int fd)
 	free(tmp);
 	return (line);
 }
-
-// int main()
-// {
-// 	int fd[3];
-// 	char	*s;
-// 	fd[0] = open("41_with_nl", O_RDWR);
-// 	fd[1] = open("init.txt", O_RDWR);
-// 	fd[2] = open("init.txt", O_RDWR);
-// 		// s = get_next_line(1003);
-// 		// printf("line === > %s", s);
-// 	s = get_next_line(fd[]);
-// 	printf("line 1 === > %s", s);
-// 	s = get_next_line(fd[2]);
-// 	printf("line 2 === > %s", s);
-// 	close(fd[2]);
-// 	fd[2] = open("init.txt", O_RDONLY);
-// 	s = get_next_line(fd[2]);
-// 	printf("line 1 === > %s", s);
-// 	s = get_next_line(fd[2]);
-// 	printf("line 2 === > %s", s);
-// 	close(fd[2]);
-// 	return (0);
-// }
-
