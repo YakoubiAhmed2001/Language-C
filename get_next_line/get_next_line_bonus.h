@@ -6,7 +6,7 @@
 /*   By: ayakoubi <ayakoubi@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 15:23:00 by ayakoubi          #+#    #+#             */
-/*   Updated: 2022/11/12 15:38:29 by ayakoubi         ###   ########.fr       */
+/*   Updated: 2022/11/14 19:34:19 by ayakoubi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,13 @@
 # include <fcntl.h>
 # include <limits.h>
 
-# ifndef BUFFER_SIZE
-# define BUFFER_SIZE 5
+# if BUFFER_SIZE < 0
+#  undef BUFFER_SIZE
+#  define BUFFER_SIZE 0
+# endif
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
 # endif
 
 char	*get_next_line(int fd);
