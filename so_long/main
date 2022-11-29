@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <fcntl.h>
+#include "get_next_line.h"
+
+int main()
+{
+		char *tmp;
+	char *s;
+	s = 0;
+	int fd;
+	fd = open("file", O_RDONLY);
+	int i;
+	/*
+	i = 0;
+	tmp = get_next_line(fd);
+	s = ft_strfree(s, tmp);
+	while (tmp)
+	{
+		tmp = get_next_line(fd);
+		s = ft_strfree(s, tmp);
+		i++;
+	}*/
+	i = 0;
+	int j;
+	j = 0;
+	while ((i * 50) <= 350)
+	{
+		s = get_next_line(fd);
+		//s = ft_strfree(s, tmp);
+		j = 0;
+		while ((j * 50) <= 650)
+		{
+			printf("%c ", s[j]);
+			j++;
+		}
+		printf("\n%c ", s[i]);
+			i++;
+	}
+	return 0;
+}
